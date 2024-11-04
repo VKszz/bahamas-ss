@@ -1,0 +1,647 @@
++<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAFF Bahamas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital@0;1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-7+9u8U+/+J0JgAJs37l/eIuB8ViDVYt/ZKldmZizdjYPL0F+8yvqpYMuXQOhoZNRqzQjAK0P2Zy6Kqlp1SAsbQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="bahamas.png" type="image/png">
+</head>
+<body   onload="start()">
+    
+    <div class="button-group">
+        <button onclick="showDenuncia()">Denúncia</button>
+        <button onclick="showCalculadora()">Calculadora</button>
+        <button onclick="showRevisao()">Revisão</button>
+    </div>
+
+    <div id="content" >
+        <section id="denuncia" class="conteudo" oninput="atualizar()" >
+            <h1>RELATÓRIO DE DENÚNCIAS</h1>
+            <div class="input-group" >
+                <label for="disstaff"><strong>Resolvido por</strong></label>
+                <input type="text" placeholder="ID DISCORD" id="disstaff" class="bgfundo" >
+                
+            </div>
+            <div class="input-group">
+                <label for="disdenunciante"><strong>Denunciante</strong></label>
+                <input type="text" placeholder="ID DISCORD" id="disdenunciante" class="bgfundo">
+                <input type="text" placeholder="ID CIDADE" id="cidadedenunciante" class="bgfundo">
+            </div>
+            <div class="input-group">
+                <label for="disdenunciado"><strong>Denunciado</strong></label>
+                <input type="text" placeholder="ID DISCORD" id="disdenunciado" class="bgfundo">
+                <input type="text" placeholder="ID CIDADE" id="cidadedenunciado" class="bgfundo">
+            </div>
+            <div class="input-group">
+                <label for="ticket"><strong>Ticket</strong></label>
+                <input type="text" placeholder="NÚMERO DO TICKET" id="ticket" class="bgfundo">
+            </div>
+            <div class="input-group">
+                <label for="julgamento"><strong>Julgamento</strong></label>
+                <select name="julgamento" id="julgamento" class="bgfundo"> 
+                    <option value="APROVADO">APROVADO</option>
+                    <option value="NEGADO">NEGADO</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="motivo"><strong>Motivo</strong></label>
+                <input type="text" placeholder="MOTIVO" id="motivo" class="bgfundo">
+            </div>
+            <div class="input-group">
+                <label for="punicao"><strong>Punição</strong></label >
+                <select name="punicao" id="punicao" class="bgfundo">
+                    <option value="N/A">N/A</option >
+                    <option value="300 Meses de prisão & 600K de multa">300 Meses de prisão & 600K de multa</option>
+                    <option value="<@&1279614002628005898>">Advertência Verbal</option>
+                    <option value="<@&1279613838173667430>">Advertência 1</option>
+                    <option value="<@&1279613895765655653>">Advertência 2</option>
+                    <option value="<@&1279613656698720286>">Banido</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="provas"><strong>Provas</strong></label>
+                <input type="text" placeholder="PROVAS" id="provas" class="bgfundo">
+            </div>
+            <div class="input-group">
+                <label for="pendencias"><strong>Pendências</strong></label>
+                <input type="text" placeholder="ITENS" id="pendencias" class="bgfundo">
+            </div>
+            <div class="buttons">
+                <button onclick="resultadodenuncia()">Resultado Denúncia</button>
+                <button onclick="prisao()">Prisão Punição</button>
+                <button onclick="advertenciaeban()">Advertências e banimentos</button>
+                <button onclick="pendencia()">Pendências</button>
+                <button onclick="ld()">🧹</button>
+            </div>
+        </div>
+
+        
+    
+        
+
+        </section>
+      
+          <div id="resultado">     
+            <strong>Aguardando informações para gerar relatório
+          </div> 
+
+        
+
+        <section id="calculadora" style="display:none;">
+            <h1>CALCULADORA STAFF</h1>
+            <div class="container">
+                <div class="form-container">
+                    <div class="label-input-group">
+                        <label for="cdenunciado">DENUNCIADO:</label>
+                        <input type="text" id="cdenunciado" placeholder="ID do denunciado" class="bgfundo">
+                    </div>
+                    <div class="label-input-group">
+                        <label for="cmotivo">MOTIVO:</label>
+                        <input type="text" id="cmotivo" placeholder="Motivo da multa" class="bgfundo" >
+                    </div>
+                </div>
+                <div class="checkbox-container">
+                    
+                <div class="column" > 
+                    <h2>ITENS AVULSOS</h2>
+                    <div class="item">
+                        <input type="checkbox" id="roupa" onclick="toggleInput('roupaQty')" title=""/>
+                        <label for="roupa" title="roupas">Roupa</label>
+                        <input type="number" id="roupaQty" value="0" min="0" disabled />
+                    </div>
+                    
+                    <div class="item">
+                        <input type="checkbox" id="binoculos" onclick="toggleInput('binoculosQty')" />
+                        <label for="binoculos" title="binoculos">Binóculos</label>
+                        <input type="number" id="binoculosQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="repairkit" onclick="toggleInput('repairkitQty')" />
+                        <label for="repairkit" title="repairkit">Kit de reparo</label>
+                        <input type="number" id="repairkitQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="pneu" onclick="toggleInput('pneuQty')" />
+                        <label for="pneu" title="pneu">Pneu</label>
+                        <input type="number" id="pneuQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="celular" onclick="toggleInput('celularQty')" />
+                        <label for="celular" title="celular">Celular</label>
+                        <input type="number" id="celularQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="militec" onclick="toggleInput('militecQty')" />
+                        <label for="militec" title="militec">Reparo de motor</label>
+                        <input type="number" id="militecQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="oxigenio" onclick="toggleInput('oxigenioQty')" />
+                        <label for="oxigenio" title="oxigenio">Oxigenio</label>
+                        <input type="number" id="oxigenioQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="alianca" onclick="toggleInput('aliancaQty')" />
+                        <label for="alianca" title="alianca">Aliança</label>
+                        <input type="number" id="aliancaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="cordas" onclick="toggleInput('cordasQty')" />
+                        <label for="cordas" title="cordas">Cordas</label>
+                        <input type="number" id="cordasQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="paraquedas" onclick="toggleInput('paraquedasQty')" />
+                        <label for="paraquedas" title="parachute">Paraquedas</label>
+                        <input type="number" id="paraquedasQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="rosa" onclick="toggleInput('rosaQty')" />
+                        <label for="rosa" title="rose">Rosa</label>
+                        <input type="number" id="rosaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="cigarro" onclick="toggleInput('cigarroQty')" />
+                        <label for="cigarro" title="cigarro">Cigarro</label>
+                        <input type="number" id="cigarroQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="isqueiro" onclick="toggleInput('isqueiroQty')" />
+                        <label for="isqueiro" title="isqueiro">Isqueiro</label>
+                        <input type="number" id="isqueiroQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="hkp7m10" onclick="toggleInput('hkp7m10Qty')" />
+                        <label for="hkp7m10" title="snsistol">HK P7M10</label>
+                        <input type="number" id="hkp7m10Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="munihkp7m10" onclick="toggleInput('munihkp7m10Qty')" />
+                        <label for="munihkp7m10" title="ammo_snsistol">Munição HK P7M10</label>
+                        <input type="number" id="munihkp7m10Qty" value="0" min="0" disabled />
+                    </div>
+                    
+                    <div class="item">
+                        <input type="checkbox" id="aguadecoco" onclick="toggleInput('aguadecocoQty')" />
+                        <label for="aguadecoco" title="aguadecoco">Água de coco</label>
+                        <input type="number" id="aguadecocoQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="rastreador" onclick="toggleInput('rastreadorQty')" />
+                        <label for="rastreador" title="rastreador">Rastreador</label>
+                        <input type="number" id="rastreadorQty" value="0" min="0" disabled />
+                    </div>
+                    
+                    <div class="item">
+                        <input type="checkbox" id="dinheirolimpo" onclick="toggleInput('dinheirolimpoQty')" />
+                        <label for="dinheirolimpo" title="dollars">Dinheiro</label>
+                        <input type="number" id="dinheirolimpoQty" value="0" min="0" disabled  />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="dinheirosujo" onclick="toggleInput('dinheirosujoQty')" />
+                        <label for="dinheirosujo" title="dollars">Dinheiro Sujo</label>
+                        <input type="number" id="dinheirosujoQty" value="0" min="0" disabled  />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="taser" onclick="toggleInput('taserQty')" />
+                        <label for="taser" title="stungun">Taser</label>
+                        <input type="number" id="taserQty" value="0" min="0" disabled  />
+                    </div>
+                </div>
+                <div class="column">
+                    <h2>JOIAS</h2>
+        
+                    <div class="item">
+                        <input type="checkbox" id="bronze" onclick="toggleInput('bronzeQty')" />
+                        <label for="bronze" title="bronze">Bronze</label>
+                        <input type="number" id="bronzeQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="diamante" onclick="toggleInput('diamanteQty')" />
+                        <label for="diamante" title="diamante">Diamante</label>
+                        <input type="number" id="diamanteQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="esmeralda" onclick="toggleInput('esmeraldaQty')" />
+                        <label for="esmeralda" title="esmeralda">Esmeralda</label>
+                        <input type="number" id="esmeraldaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="topazio" onclick="toggleInput('topazioQty')" />
+                        <label for="topazio" title="topazio">Topazio</label>
+                        <input type="number" id="topazioQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="rubi" onclick="toggleInput('rubiQty')" />
+                        <label for="rubi" title="rubi">Rubi</label>
+                        <input type="number" id="rubiQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="safira" onclick="toggleInput('safiraQty')" />
+                        <label for="safira" title="safira">Safira</label>
+                        <input type="number" id="safiraQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="ametista" onclick="toggleInput('ametistaQty')" />
+                        <label for="ametista" title="ametista">Ametista</label>
+                        <input type="number" id="ametistaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="ferro" onclick="toggleInput('ferroQty')" />
+                        <label for="ferro" title="ferro">Ferro</label>
+                        <input type="number" id="ferroQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="ouro" onclick="toggleInput('ouroQty')" />
+                        <label for="ouro" title="ouro"> Ouro</label>
+                        <input type="number" id="ouroQty" value="0" min="0" disabled />
+                    </div>
+                    
+                </div>
+                <div class="column">
+                    <h2>PESCARIA</h2>
+        
+                    <div class="item">
+                        <input type="checkbox" id="tucunare" onclick="toggleInput('tucunareQty')" />
+                        <label for="tucunare" title="tucunare">Tucunare</label>
+                        <input type="number" id="tucunareQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="salmao" onclick="toggleInput('salmaoQty')" />
+                        <label for="salmao" title="salmao">Salmao</label>
+                        <input type="number" id="salmaoQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="dourado" onclick="toggleInput('douradoQty')" />
+                        <label for="dourado" title="dourado">Dourado</label>
+                        <input type="number" id="douradoQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="tilapia" onclick="toggleInput('tilapiaQty')" />
+                        <label for="tilapia" title="tilapia">Tilapia</label>
+                        <input type="number" id="tilapiaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="pirarucu" onclick="toggleInput('pirarucuQty')" />
+                        <label for="pirarucu" title="pirarucu">Pirarucu</label>
+                        <input type="number" id="pirarucuQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="corvina" onclick="toggleInput('corvinaQty')" />
+                        <label for="corvina" title="corvina">Corvina</label>
+                        <input type="number" id="corvinaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="lambari" onclick="toggleInput('lambariQty')" />
+                        <label for="lambari" title="lambari">Lambari</label>
+                        <input type="number" id="lambariQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="pintado" onclick="toggleInput('pintadoQty')" />
+                        <label for="pintado" title="pintado">Pintado</label>
+                        <input type="number" id="pintadoQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="pacu" onclick="toggleInput('pacuQty')" />
+                        <label for="pacu" title="pacu">Pacu </label>
+                        <input type="number" id="pacuQty" value="0" min="0" disabled />
+                    </div>
+                    
+                </div>
+                <div class="column">
+                    <h2>REMÉDIOS</h2>
+        
+                    <div class="item">
+                        <input type="checkbox" id="bandagem" onclick="toggleInput('bandagemQty')" />
+                        <label for="bandagem" title="bandagem">Bandagem</label>
+                        <input type="number" id="bandagemQty" value="0" min="0" disabled />
+                    </div>
+        
+                    <div class="item">
+                        <input type="checkbox" id="dorflex" onclick="toggleInput('dorflexQty')" />
+                        <label for="dorflex" title="dorflex">Dorflex</label>
+                        <input type="number" id="dorflexQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="camisinha" onclick="toggleInput('camisinhaQty')" />
+                        <label for="camisinha" title="camisinha">Camisinha</label>
+                        <input type="number" id="camisinhaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="primeirossocorros" onclick="toggleInput('primeirossocorrosQty')" />
+                        <label for="primeirossocorros" title="primeirossocorros">Primeiros Socorros</label>
+                        <input type="number" id="primeirossocorrosQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="cirurgia" onclick="toggleInput('cirurgiaQty')" />
+                        <label for="cirurgia" title="cirurgia">Cirurgia</label>
+                        <input type="number" id="cirurgiaQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="honra" onclick="toggleInput('honraQty')" />
+                        <label for="honra" title="honrahp / honrabm / honrapolicial ">Honra</label>
+                        <input type="number" id="honraQty" value="0" min="0" disabled />
+                    </div>
+                    
+                </div>
+                <div class="column">
+                    <h2>ILEGAL</h2>
+        
+                    <div class="item">
+                        <input type="checkbox" id="fiveSeven" onclick="toggleInput('fiveSevenQty')" />
+                        <label for="fiveSeven" title="pistol_mk2">FN Five Seven  </label>
+                        <input type="number" id="fiveSevenQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniFiveSeven" onclick="toggleInput('muniFiveSevenQty')" />
+                        <label for="muniFiveSeven" title="ammo_pistol_mk2">Munição Five 7 </label>
+                        <input type="number" id="muniFiveSevenQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="glock" onclick="toggleInput('glockQty')" />
+                        <label for="glock" title="combatpistol">Glock 19 </label>
+                        <input type="number" id="glockQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniGlock" onclick="toggleInput('muniGlockQty')" />
+                        <label for="muniGlock" title="ammo_combatpistol">Munição Glock </label>
+                        <input type="number" id="muniGlockQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="ak47" onclick="toggleInput('ak47Qty')" />
+                        <label for="ak47" title="assaultrifle_mk2">AK-47 </label>
+                        <input type="number" id="ak47Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniAk47" onclick="toggleInput('muniAk47Qty')" />
+                        <label for="muniAk47" title="ammo_assaultrifle_mk2">Munição AK-47 </label>
+                        <input type="number" id="muniAk47Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="mtar21" onclick="toggleInput('mtar21Qty')" />
+                        <label for="mtar21" title="assaultsmg">MTAR-21 </label>
+                        <input type="number" id="mtar21Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniMtar21" onclick="toggleInput('muniMtar21Qty')" />
+                        <label for="muniMtar21" title="ammo_assaultsmg">Munição MTAR21 </label>
+                        <input type="number" id="muniMtar21Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="thompson" onclick="toggleInput('thompsonQty')" />
+                        <label for="thompson" title="gusenberg">Thompson </label>
+                        <input type="number" id="thompsonQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniThompson" onclick="toggleInput('muniThompsonQty')" />
+                        <label for="muniThompson" title="ammo_gusenberg">Munição Thompson </label>
+                        <input type="number" id="muniThompsonQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="m110" onclick="toggleInput('m110Qty')" />
+                        <label for="m110" title="m110">M110 </label>
+                        <input type="number" id="m110Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="munim110" onclick="toggleInput('munim110Qty')" />
+                        <label for="munim110" title="ammo_m110">Munição M110 </label>
+                        <input type="number" id="munim110Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="aug" onclick="toggleInput('augQty')" />
+                        <label for="aug" title="advancedrifle">Advancedriffle </label>
+                        <input type="number" id="augQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniAug" onclick="toggleInput('muniAugQty')" />
+                        <label for="muniAug" title="ammo_advancedrifle">Munição Advancedriffle </label>
+                        <input type="number" id="muniAugQty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="g36" onclick="toggleInput('g36Qty')" />
+                        <label for="g36" title="specialcarbine_mk2">G36 </label>
+                        <input type="number" id="g36Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="muniG36" onclick="toggleInput('muniG36Qty')" />
+                        <label for="muniG36" title="ammo_specialcarbine_mk2">Munição G36 </label>
+                        <input type="number" id="muniG36Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="fuzilM4A4" onclick="toggleInput('fuzilM4A4Qty')" />
+                        <label for="fuzilM4A4" title="carbinerifle_mk2">M4A4 </label>
+                        <input type="number" id="fuzilM4A4Qty" value="0" min="0" disabled />
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" id="munifuzilM4A4" onclick="toggleInput('munifuzilM4A4Qty')" />
+                        <label for="munifuzilM4A4" title="ammo_carbinerifle_mk2">Munição M4A4 </label>
+                        <input type="number" id="munifuzilM4A4Qty" value="0" min="0" disabled />
+                    </div>        
+                    
+                    
+                    </div>
+                    <div class="column">
+                        <h2>ILEGAL</h2>
+                        <div class="item">
+                            <input type="checkbox" id="pistolMachine" onclick="toggleInput('pistolMachineQty')" />
+                            <label for="pistolMachine" title="machinepistol">Machine Pistol </label>
+                            <input type="number" id="pistolMachineQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="muniPistolMachine" onclick="toggleInput('muniPistolMachineQty')" />
+                            <label for="muniPistolMachine" title="ammo_machinepistol">Munição Machine Pistol </label> 
+                            <input type="number" id="muniPistolMachineQty" value="0" min="0" disabled />
+                            
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="microuzi" onclick="toggleInput('microuziQty')" />
+                            <label for="microuzi" title="microsmg">Uzi </label>                            
+                            <input type="number" id="microuziQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="munimicrouzi" onclick="toggleInput('munimicrouziQty')" />
+                            <label for="microuzi" title="ammo_microsmg">Munição Uzi </label>                            
+                            <input type="number" id="munimicrouziQty" value="0" min="0" disabled />
+                        </div>
+                        
+                        <div class="item">
+                            <input type="checkbox" id="radio" onclick="toggleInput('radioQty')" />
+                            <label for="radio" title="radio">Rádio</label>
+                            <input type="number" id="radioQty" value="0" min="0" disabled />
+                        </div>
+                        
+                        <div class="item">
+                            <input type="checkbox" id="mochilax" onclick="toggleInput('mochilaxQty')" />
+                            <label for="mochilax" title="mochilax">Mochila x </label>
+                            <input type="number" id="mochilaxQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="colete" onclick="toggleInput('coleteQty')" />
+                            <label for="colete" title="colete">Colete </label>
+                            <input type="number" id="coleteQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="algemas" onclick="toggleInput('algemasQty')" />
+                            <label for="algemas" title="algemas">Algemas </label>
+                            <input type="number" id="algemasQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="capuz" onclick="toggleInput('capuzQty')" />
+                            <label for="capuz" title="capuz">Capuz </label>
+                            <input type="number" id="capuzQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="lockpick" onclick="toggleInput('lockpickQty')" />
+                            <label for="lockpick" title="lockpick">Lockpick </label>
+                            <input type="number" id="lockpickQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="farm" onclick="toggleInput('farmQty')" />
+                            <label for="farm">Farm </label>
+                            <input type="number" id="farmQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="drogas" onclick="toggleInput('drogasQty')" />
+                            <label for="drogas">Drogas </label>
+                            <input type="number" id="drogasQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="armaBranca" onclick="toggleInput('armaBrancaQty')" />
+                            <label for="armaBranca">Arma Branca </label>
+                            <input type="number" id="armaBrancaQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="pedecabra" onclick="toggleInput('pedecabraQty')" />
+                            <label for="pedecabra" title="pedecabra">Pé de Cabra </label>
+                            <input type="number" id="pedecabraQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="alicate" onclick="toggleInput('alicateQty')" />
+                            <label for="alicate" title="alicate">Alicate </label>
+                            <input type="number" id="alicateQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="sabonete" onclick="toggleInput('saboneteQty')" />
+                            <label for="sabonete" title="sabonete">Sabonete</label>
+                            <input type="number" id="saboneteQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="dominascoin" onclick="toggleInput('dominascoinQty')" />
+                            <label for="dominascoin" title="fusiongroupcoin">Dominas Coin</label>
+                            <input type="number" id="dominascoinQty" value="0" min="0" disabled />
+                        </div>
+                        <div class="item">
+                            <input type="checkbox" id="M4A1" onclick="toggleInput('M4A1Qty')" />
+                            <label for="M4A1" title="ammo_carbinerifle_mk2">M4A1 </label>
+                            <input type="number" id="M4A1Qty" value="0" min="0" disabled />
+                        </div>   
+                        <div class="item">
+                            <input type="checkbox" id="muniM4A1" onclick="toggleInput('muniM4A1Qty')" />
+                            <label for="muniM4A1" title="ammo_carbinerifle_mk2">Munição M4A1 </label>
+                            <input type="number" id="muniM4A1Qty" value="0" min="0" disabled />
+                        </div>   
+            </div>
+            <div class="total-container2"></div>
+            <h2 id="resultado1">VALOR DA MULTA: R$0,00</h2>
+            </div>
+            <div class="total-container">
+                <button onclick="calcularMulta()">Calcular Multa</button>
+                <button onclick="limparDados()">Limpar Dados</button>
+                <button onclick="copiarDados()">Copiar Dados</button>
+            </div>
+        </section>
+    </div>
+
+    <section id="revisao" style="display:none;" oninput="atualizar2()">
+
+        <h1>RELATÓRIO DE REVISÕES</h1>
+        <div class="input-group">
+            <label for="julgamento" id="julgamento"><strong>Julgamento</strong></label>
+            <select name="julgamento" id="julgamento2" onchange="att()" class="bgfundo"> 
+                <option value="APROVADO">APROVADO</option>
+                <option value="NEGADO">NEGADO</option>
+                <option value="CONVERTIDA">CONVERTIDA</option>
+                <option value="SSALERTA">SS Alerta</option>
+            </select>
+        </div>
+    
+        <div class="input-group">
+            <label for="id"><strong>ID</strong></label>
+            <input type="text" placeholder="ID CIDADE" id="id" oninput="att() " class="bgfundo">
+        </div>
+        <div class="input-group" id="disss">
+            <label for="disss"> <strong></strong>Discord</label>
+            <input type="text" placeholder="Discord SS Alerta" class="bgfundo" id="disss4" oninput="att()">
+        </div>
+    
+        <div class="input-group" id="divdenuncia">
+            <label for="tdenuncia"><strong>Ticket de denúncia</strong></label>
+            <input type="text" placeholder="NÚMERO TICKET DENÚNCIA" id="tdenuncia" oninput="att()" class="bgfundo">
+        </div>
+    
+        <div class="input-group" id="divrevisao">
+            <label for="trevisao"><strong>Ticket de revisão</strong></label>
+            <input type="text" placeholder="NÚMERO TICKET REVISÃO" id="trevisao" oninput="att()" class="bgfundo">
+        </div>
+    
+        <div class="input-group">
+            <label for="motivo"><strong>Motivo</strong></label>
+            <input type="text" placeholder="MOTIVO" id="motivo2" oninput="att()" class="bgfundo">
+        </div>
+    
+        <div class="input-group" id="pua">
+            <label for="punicao" id="punicao"><strong>Punição atual</strong></label>
+            <select name="punicao" id="punicao2" onchange="att()" class="bgfundo">
+                <option value="300 Meses de prisão & 600K de multa">300 Meses de prisão & 600K de multa</option>
+                <option value="<@&1279614002628005898>">Advertência Verbal</option>
+                <option value="<@&1279613838173667430>">Advertência 1</option>
+                <option value="<@&1279613895765655653>">Advertência 2</option>
+                <option value="<@&1279613656698720286>">Banido</option>
+            </select>
+        </div>
+
+    
+        <div class="input-group" id="remocaoo">
+            <label for="convertido"><strong>Convertido para</strong></label>
+            <select name="" id="convertido" onchange="att()" class="bgfundo">
+                <option value="N/A">N/A</option>
+                <option value="300 Meses de prisão & 600K de multa">300 Meses de prisão & 600K de multa</option>
+                <option value="<@&1279614002628005898>">Advertência Verbal</option>
+                <option value="<@&1279613838173667430>">Advertência 1</option>
+                <option value="<@&1279613895765655653>">Advertência 2</option>
+                <option value="<@&1279613838173667430> <@&1279613895765655653>">Advertência 1 & 2</option>
+            </select>
+        </div>
+    
+        <div class="buttons">
+            <button onclick="copy()">Copiar relatório</button>
+            <button onclick="lr()">🧹</button>
+            <button onclick="SS()">SS Alerta</button>
+        </div>
+    
+        <div id="resultado3">     
+            <strong>Aguardando informações para gerar relatório</strong>
+        </div> 
+    </section>
+
+
+
+    <footer>
+        <img src="bahamas.png" alt="Logo2" class="footer-logo2">
+        <p>Equipe Bahamas - Copyright © NexT Bots 2024</p>
+        <img src="Design_sem_nome__8_-removebg-preview.png" alt="Logo" class="footer-logo">
+        <a href="https://discord.gg/a8atp6mB4T" target="_blank" class="discord-button">
+            <img src="discordia.png" alt="Logo3" class="footer-logo3">
+            <strong><i class="fab fa-discord"></i> Contato</strong>
+            <div id="root"></div>
+        </a>
+    </footer>
+    <script src="index.js">
+        
+    </script>
+</body>
+</html>
